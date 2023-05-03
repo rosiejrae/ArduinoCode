@@ -1,0 +1,27 @@
+%Matlab script for arduino uno, accomplished with arduino/matlab support
+%package
+% create an arduino object
+
+clear
+clc
+close all
+
+
+a = arduino();
+
+% Set the pin modes to digital output
+configurePin(a, 'D5', 'DigitalOutput');
+configurePin(a, 'D10', 'DigitalOutput');
+
+% Generate a pulse every 10 seconds for 5 minutes on both pins
+for i = 1:30
+    writeDigitalPin(a, 'D5', 1);
+    writeDigitalPin(a, 'D10', 1);
+    pause(0.5);
+    writeDigitalPin(a, 'D5', 0);
+    writeDigitalPin(a, 'D10', 0);
+    pause(9.5);
+end
+
+% End communication with the Arduino board
+clear a;
