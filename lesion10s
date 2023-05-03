@@ -1,0 +1,20 @@
+clear
+clc
+close all
+
+a = arduino();
+
+% Set the pin mode to digital output
+configurePin(a, 'D10', 'DigitalOutput');
+
+% Generate a pulse that loops 1000 times with a 2000ms pause between iterations
+for i = 1:5
+    writeDigitalPin(a, 'D10', 1);
+    writeDigitalPin(a, 'D10', 0);
+    pause(2);
+end
+
+pause(2);
+
+% End communication with the Arduino board
+clear a;
