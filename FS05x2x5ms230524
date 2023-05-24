@@ -1,0 +1,31 @@
+%Matlab script for arduino uno, accomplished with arduino/matlab support
+%package
+% create an arduino object
+
+clear
+clc
+close all
+
+a = arduino();
+
+% Set the pin mode to digital output
+configurePin(a, 'D5', 'DigitalOutput');
+configurePin(a, 'D10', 'DigitalOutput');
+
+% Define the pulse durations
+pulseDurations = [0.5, 2, 5]; % in milliseconds
+
+% Generate the alternating pulses
+for i = 1:1000 % Run for 1000 iterations (adjust as needed)
+    for j = 1:length(pulseDurations)
+        writeDigitalPin(a, 'D10', 1);
+        writeDigitalPin(a, 'D5', 1);
+        pause(pulseDurations(j) / 1000); % Convert ms to seconds
+        writeDigitalPin(a, 'D10', 0);
+        writeDigitalPin(a, 'D5', 0);
+        pause(9.5); % Adjust for a small delay between pulses
+    end
+end
+
+% End communication with the Arduino board
+clear a;
